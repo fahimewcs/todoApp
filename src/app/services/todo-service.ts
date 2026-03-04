@@ -26,4 +26,17 @@ export class TodoService {
   deleteTodo(id:number){
     this.todos.update(todo => todo.filter(todo => todo.id !==id))
   }
+
+  updateTodo(
+  id: number,
+  data: { title: string; description: string; category: string; status: string; deadline: Date }
+) {
+  this.todos.update(todos =>
+    todos.map(todo => (todo.id === id ? { ...todo, ...data } : todo))
+  );
+}
+
+ getTodoById(id: number): Interface | null {
+    return this.todos().find(todo => todo.id === id) || null;
+  }
 }

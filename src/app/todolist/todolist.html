@@ -47,6 +47,39 @@
     <button (click)="add()">Add Todo</button>
   </div>
 
+  
+  <div style="margin: 15px 0;">
+    <label>Filter By: </label>
+    <select [ngModel]="filterType()" (ngModelChange)="filterType.set($event); filterValue.set('')">
+      <option value="">None</option>
+      <option value="status">Status</option>
+      <option value="category">Category</option>
+      <option value="deadline">Deadline</option>
+    </select>
+
+    <!-- Filter Value -->
+    <ng-container [ngSwitch]="filterType()">
+      <!-- Status Options -->
+      <select *ngSwitchCase="'status'" [ngModel]="filterValue()" (ngModelChange)="filterValue.set($event)">
+        <option value="">All Status</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+      </select>
+
+      <!-- Category Options -->
+      <select *ngSwitchCase="'category'" [ngModel]="filterValue()" (ngModelChange)="filterValue.set($event)">
+        <option value="">All Category</option>
+        <option value="Daily">Daily</option>
+        <option value="Weekly">Weekly</option>
+        <option value="Monthly">Monthly</option>
+      </select>
+
+      <!-- Deadline Options -->
+      <input *ngSwitchCase="'deadline'" type="date" [ngModel]="filterValue()" (ngModelChange)="filterValue.set($event)" />
+    </ng-container>
+ </div>
+
   <!-- Todo List -->
  <table border="1" cellpadding="8" cellspacing="0">
     <thead>
@@ -60,7 +93,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (todo of todoService.todos(); track todo.id) {
+      @for (todo of filteredTodos(); track todo.id) {
         <tr>
           <td>{{ todo.title }}</td>
           <td>{{ todo.description }}</td>
@@ -68,6 +101,7 @@
           <td>{{ todo.status }}</td>
           <td>{{ todo.deadline | date:'mediumDate' }}</td>
           <td>
+            <button class="edit-btn" (click)="editTodo(todo.id)">Edit</button>
             <button class="delete-btn" (click)="todoService.deleteTodo(todo.id)">Delete</button>
           </td>
         </tr>
