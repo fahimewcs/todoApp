@@ -1,0 +1,78 @@
+<div class="container">
+  <h1>Todo List</h1>
+
+  <!-- Add New Todo -->
+  <div class="form">
+    <input
+      type="text"
+      placeholder="Title"
+      [ngModel]="newTodoTitle()"
+      (ngModelChange)="newTodoTitle.set($event)"
+    />
+
+    <input
+      type="text"
+      placeholder="Description"
+      [ngModel]="newTodoDescription()"
+      (ngModelChange)="newTodoDescription.set($event)"
+    />
+
+
+    <select
+      [ngModel]="newTodoCategory()"
+      (ngModelChange)="newTodoCategory.set($event)"
+    >
+      <option value="" disabled>Catergory</option>
+      <option value="Daily">Daily</option>
+      <option value="Monthly">Monthly</option>
+      <option value="Weekly">Weekly</option>
+    </select>
+
+    <select
+      [ngModel]="newTodoStatus()"
+      (ngModelChange)="newTodoStatus.set($event)"
+    >
+      <option value="" disabled>Status</option>
+      <option value="Pending">Pending</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+
+    <input
+      type="date"
+      [ngModel]="newTodoDeadline()"
+      (ngModelChange)="newTodoDeadline.set($event)"
+    />
+
+    <button (click)="add()">Add Todo</button>
+  </div>
+
+  <!-- Todo List -->
+ <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Deadline</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (todo of todoService.todos(); track todo.id) {
+        <tr>
+          <td>{{ todo.title }}</td>
+          <td>{{ todo.description }}</td>
+          <td>{{ todo.category }}</td>
+          <td>{{ todo.status }}</td>
+          <td>{{ todo.deadline | date:'mediumDate' }}</td>
+          <td>
+            <button class="delete-btn" (click)="todoService.deleteTodo(todo.id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
