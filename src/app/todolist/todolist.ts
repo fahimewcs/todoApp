@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { TodoService } from '../services/todo-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
+import { Interface } from './interface';
 
 @Component({
   selector: 'app-todolist',
@@ -16,11 +17,13 @@ export class Todolist {
   newTodoTitle = signal('');
   newTodoDescription = signal('');
   newTodoCategory = signal('');
-  newTodoStatus = signal('');
+  newTodoStatus = signal('Pending');
   newTodoDeadline = signal(new Date().toISOString().split('T')[0]);
 
 
-  constructor(public todoService: TodoService){}
+  constructor(public todoService: TodoService){
+    this.filteredTodosList.set(this.todoService.todos());
+  }
   
 
   add(){
@@ -51,8 +54,10 @@ export class Todolist {
       this.newTodoTitle.set('');
       this.newTodoDescription.set('');
       this.newTodoCategory.set('');
-      this.newTodoStatus.set('');
+      this.newTodoStatus.set('Pending');
       this.newTodoDeadline.set(new Date().toISOString().split('T')[0]);
+
+      this.filteredTodosList.set(this.todoService.todos());
   }
 
   editTodo(id: number) {
@@ -63,41 +68,61 @@ export class Todolist {
     this.newTodoTitle.set(todo.title);
     this.newTodoDescription.set(todo.description);
     this.newTodoCategory.set(todo.category);
-    this.newTodoStatus.set(todo.status);
+    // this.newTodoStatus.set(todo.status);
     this.newTodoDeadline.set(new Date(todo.deadline).toISOString().split('T')[0]);
   }
 
   
 
-  filterType = signal(''); 
-  filterValue = signal(''); 
+filterStatus = signal('');
+filterCategory = signal('');
+filterDeadline = signal(''); 
 
-  filteredTodos = computed(() => {
-    let todos = [...this.todoService.todos()];
+filteredTodosList = signal<Interface[]>([]);
 
-    if (!this.filterType() || !this.filterValue()) {
-      return todos; 
-    }
+ applyFilter(): void {
 
-    if (this.filterType() === 'status') {
-      return todos.filter(todo => todo.status === this.filterValue());
-    }
+  let todos = [...this.todoService.todos()];
 
-    if (this.filterType() === 'category') {
-      return todos.filter(todo => todo.category === this.filterValue());
-    }
+  const status = this.filterStatus();
+  if (status) {
+    todos = todos.filter(todo => todo.status === status);
+  }
 
-    if (this.filterType() === 'deadline') {
-      return todos.filter(todo =>
-        new Date(todo.deadline).toDateString() ===
-        new Date(this.filterValue()).toDateString()
-      );
-    }
+  const category = this.filterCategory();
+  if (category) {
+    todos = todos.filter(todo => todo.category === category);
+  }
 
-    return todos;
-  });
+
+  const deadline = this.filterDeadline();
+  if (deadline) {
+    todos = todos.filter(todo => {
+      const todoDate = new Date(todo.deadline).toISOString().split('T')[0];
+      return todoDate === deadline;
+    });
+  }
+  this.filteredTodosList.set(todos);
+}
+
+resetFilter(): void {
+  
+  this.filterStatus.set('');
+  this.filterCategory.set('');
+  this.filterDeadline.set('');
 
   
+  this.filteredTodosList.set(this.todoService.todos());
+}
+
+
+deleteTodo(id: number) {
+
+  this.todoService.deleteTodo(id);
+
+  this.filteredTodosList.set(this.todoService.todos());
+}
+
   
 
 }
