@@ -1,8 +1,11 @@
-export interface Interface {
+export interface Todo {
     id: number;
     title: string;
     description: string;
     category: string;
+    priority: string;
     status: string;
-    deadline: Date;
+    assignedTo: string;
+    startDate: Date;
+    endDate: Date;
 }

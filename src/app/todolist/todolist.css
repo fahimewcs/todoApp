@@ -25,44 +25,55 @@ h1 {
 /* Form (Add / Update Todo) */
 .form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-input,
-select {
-  padding: 8px 12px;
-  font-size: 14px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form input,
+.form select {
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-/* Buttons in form */
+.form input:focus,
+.form select:focus {
+  border-color: #6c63ff;
+  outline: none;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
 button {
-  padding: 8px 12px;
-  background-color: #007bff;
-  border: none;
+  grid-column: span 3;
+  padding: 10px;
+  background: #6c63ff;
   color: white;
-  border-radius: 5px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+}
+
+.update-btn {
+  background: #ff9800;
 }
 
 button:hover {
-  background-color: #0056b3;
+  opacity: 0.9;
 }
 
-/* Update Todo button style */
-.update-btn {
-  background-color: rgb(174, 188, 23);
-}
 
-.update-btn:hover {
-  background-color: #a7ac1f;
-}
 
 /* Filter Row */
 .filter-row {
@@ -87,15 +98,15 @@ button:hover {
   border: 1px solid #ccc;
 }
 
-/* Filter + Reset buttons together */
+
 .filter-buttons {
-  display: flex;       /* row layout */
-  gap: 10px;           /* space between buttons */
+  display: flex;      
+  gap: 10px;           
   align-items: flex-end;
 }
 
 .filter-buttons button {
-  flex: none;          /* buttons keep natural width */
+  flex: none;          
   padding: 6px 12px;
   font-size: 14px;
   border-radius: 4px;
@@ -183,6 +194,7 @@ button.delete-btn {
 button.delete-btn:hover {
   background-color: #c82333;
 }
+
 
 /* Responsive for small screens */
 @media (max-width: 768px) {

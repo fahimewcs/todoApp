@@ -3,83 +3,108 @@
 
   <!-- Add New Todo -->
   <div class="form">
-    <input
-      type="text"
-      placeholder="Title"
-      [ngModel]="newTodoTitle()"
-      (ngModelChange)="newTodoTitle.set($event)"
-    />
 
+  <div class="form-group">
+    <label>Task Name</label>
     <input
       type="text"
-      placeholder="Description"
+      placeholder="Enter Title"
+      [ngModel]="newTodoTitle()"
+      (ngModelChange)="onTitleChange($event)"
+    />
+    <div class="error" *ngIf="titleError()">{{ titleError() }}</div>
+  </div>
+
+
+  <div class="form-group">
+    <label>Description</label>
+    <input
+      type="text"
+      placeholder="Enter Description"
       [ngModel]="newTodoDescription()"
       (ngModelChange)="newTodoDescription.set($event)"
     />
-
-
-    <select
-      [ngModel]="newTodoCategory()"
-      (ngModelChange)="newTodoCategory.set($event)"
-    >
-      <option value="" disabled>Catergory</option>
-      <option value="Daily">Daily</option>
-      <option value="Monthly">Monthly</option>
-      <option value="Weekly">Weekly</option>
-    </select>
-
-    <!-- <select
-      [ngModel]="newTodoStatus()"
-      (ngModelChange)="newTodoStatus.set($event)">
-      <option value="" disabled>Status</option>
-      <option value="Pending">Pending</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
-    </select> -->
-
-    <input
-      type="date"
-      [ngModel]="newTodoDeadline()"
-      (ngModelChange)="newTodoDeadline.set($event)"
-    />
-
-    <button (click)="add()" [class.update-btn]="editId() !== null">
-      {{editId() !==null ? 'Update Todo': 'Add Todo'}}
-    </button>
   </div>
 
-  
-  <!-- <div style="margin: 15px 0;">
-    <label>Filter By: </label>
-    <select [ngModel]="filterType()" (ngModelChange)="filterType.set($event); filterValue.set('')">
-      <option value="">None</option>
-      <option value="status">Status</option>
-      <option value="category">Category</option>
-      <option value="deadline">Deadline</option>
-    </select> -->
 
-    <!-- Filter Value -->
-    <!-- <ng-container [ngSwitch]="filterType()"> -->
-      <!-- Status Options -->
-      <!-- <select *ngSwitchCase="'status'" [ngModel]="filterValue()" (ngModelChange)="filterValue.set($event)">
-        <option value="">All Status</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-      </select> -->
+  <div class="form-group">
+    <label>Category</label>
+    <select
+      [ngModel]="newTodoCategory()"
+      (ngModelChange)="onCategoryChange($event)"
+    >
+      <option value="" disabled selected>Select</option>
+      <option value="Development">Development</option>
+      <option value="UI/UX">UI/UX Design</option>
+      <option value="QA">QA</option>
+      <option value="DevOps">DevOps</option>
+      <option value="Database">DB Design</option>
+      <option value="Business Analysis">Business Analysis</option>
+    </select>
 
-      <!-- Category Options -->
-      <!-- <select *ngSwitchCase="'category'" [ngModel]="filterValue()" (ngModelChange)="filterValue.set($event)">
-        <option value="">All Category</option>
-        <option value="Daily">Daily</option>
-        <option value="Weekly">Weekly</option>
-        <option value="Monthly">Monthly</option>
-      </select> -->
+    <div class="error" *ngIf="categoryError()">{{ categoryError() }}</div>
+  </div>
 
-      <!-- Deadline Options -->
-      <!-- <input *ngSwitchCase="'deadline'" type="date" [ngModel]="filterValue()" (ngModelChange)="filterValue.set($event)" />
-    </ng-container>
- </div> -->
+
+  <div class="form-group">
+    <label>Priority</label>
+    <select
+      [ngModel]="newTodoPriority()"
+      (ngModelChange)="newTodoPriority.set($event)"
+    >
+      <option value="" disabled selected>Select</option>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+      <option value="Critical">Critical</option>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label>Assigned To</label>
+    <select
+      [ngModel]="newTodoAssigndedTo()"
+      (ngModelChange)="newTodoAssigndedTo.set($event)"
+    >
+      <option value="" disabled selected>Select</option>
+      <option value="Abir">Abir</option>
+      <option value="Raihan">Raihan</option>
+      <option value="Navid">Navid</option>
+      <option value="Khalid">Khalid</option>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label>Start Date</label>
+    <input
+      type="date"
+      [ngModel]="newTodoStartDate()"
+      (ngModelChange)="newTodoStartDate.set($event)"
+    />
+  </div>
+
+
+  <div class="form-group">
+    <label>End Date</label>
+    <input
+      type="date"
+      [ngModel]="newTodoEndDate()"
+      (ngModelChange)="onEndDateChange($event)"
+    />
+
+    <div class="error" *ngIf="endDateError()">{{ endDateError() }}</div>
+  </div>
+
+
+  <button (click)="add()" [class.update-btn]="editId() !== null">
+    {{editId() !==null ? 'Update Todo': 'Add Todo'}}
+  </button>
+
+</div>
+
+
 
 <div class="filter-row">
   <div class="filter-item">
@@ -96,9 +121,12 @@
     <label>Category:</label>
     <select [ngModel]="filterCategory()" (ngModelChange)="filterCategory.set($event)">
       <option value="">All</option>
-      <option value="Daily">Daily</option>
-      <option value="Weekly">Weekly</option>
-      <option value="Monthly">Monthly</option>
+      <option value="Development">Development</option>
+      <option value="UI/UX">UI/UX Design</option>
+      <option value="QA">QA</option>
+      <option value="DevOps">DevOps</option>
+      <option value="Database">DB Design</option>
+      <option value="Business Analysis">Business Analysis</option>
     </select>
   </div>
 
@@ -115,14 +143,17 @@
 
 
   <!-- Todo List -->
- <table border="1" cellpadding="8" cellspacing="0">
+ <table border="1">
     <thead>
       <tr>
         <th>Title</th>
         <th>Description</th>
         <th>Category</th>
+        <th>Priority</th>
         <th>Status</th>
-        <th>Deadline</th>
+        <th>Assigned To</th>
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -132,6 +163,7 @@
           <td>{{ todo.title }}</td>
           <td>{{ todo.description }}</td>
           <td>{{ todo.category }}</td>
+          <td>{{ todo.priority }}</td>
           <td>
             <select [ngModel]="todo.status"
                     (ngModelChange)="todoService.updateTodo(todo.id,{...todo, status:$event})">
@@ -141,7 +173,9 @@
             </select>
 
           </td>
-          <td>{{ todo.deadline | date:'mediumDate' }}</td>
+          <td>{{ todo.assignedTo }}</td>
+          <td>{{ todo.startDate | date:'mediumDate' }}</td>
+          <td>{{ todo.endDate | date:'mediumDate' }}</td>
           <td>
             <button class="edit-btn" (click)="editTodo(todo.id)">Edit</button>
             <button class="delete-btn" (click)="deleteTodo(todo.id)">Delete</button>
