@@ -129,6 +129,20 @@ button:hover {
   background-color: #555;
 }
 
+.filter-buttons button.disabled-btn {
+  background-color: #ccc !important; 
+  color: #666;
+  cursor: not-allowed;
+}
+
+button.disabled-btn {
+  background-color: #ccc;   
+  cursor: not-allowed;
+}
+
+
+
+
 /* Table Styling */
 table {
   width: 100%;
@@ -194,6 +208,8 @@ button.delete-btn {
 button.delete-btn:hover {
   background-color: #c82333;
 }
+
+
 
 
 /* Responsive for small screens */

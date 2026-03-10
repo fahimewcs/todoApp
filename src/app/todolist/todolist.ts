@@ -179,6 +179,23 @@ deleteTodo(id: number) {
     this.newTodoEndDate.set(value);
     if (value) this.endDateError.set('');
   }
+
+
+  isAddDisabled = computed(() => {
+    return !this.newTodoTitle().trim();
+  });
+
+  isFilterDisabled = computed(() => {
+    return !this.filterStatus() && !this.filterCategory() && !this.filterDeadline();
+  });
+
+  isResetDisabled = computed(()=>{
+    const filtersEmpty = !this.filterStatus() && !this.filterCategory() && !this.filterDeadline();
   
+    const tableEmpty = this.filteredTodosList().length === 0;
+
+    return filtersEmpty && tableEmpty;
+  })
+    
 
 }

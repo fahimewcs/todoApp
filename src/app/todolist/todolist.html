@@ -98,7 +98,8 @@
   </div>
 
 
-  <button (click)="add()" [class.update-btn]="editId() !== null">
+  <button (click)="add()" [class.update-btn]="editId() !== null" [disabled]="isAddDisabled()" [class.disabled-btn]="isAddDisabled()">
+    
     {{editId() !==null ? 'Update Todo': 'Add Todo'}}
   </button>
 
@@ -136,8 +137,8 @@
   </div>
 
   <div class="filter-buttons">
-    <button (click)="applyFilter()">Filter</button>
-    <button (click)="resetFilter()" class="reset-btn">Reset</button>
+    <button (click)="applyFilter()" [disabled]="isFilterDisabled()" [class.disabled-btn]="isFilterDisabled()">Filter</button>
+    <button class="reset-btn" (click)="resetFilter()" [disabled]="isResetDisabled()" [class.disabled-btn]="isResetDisabled()">Reset</button>
   </div>
 </div>
 
