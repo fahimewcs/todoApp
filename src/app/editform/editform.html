@@ -1,0 +1,70 @@
+<div class="container">
+  <h1>Edit Todo</h1>
+
+  <form [formGroup]="todoForm" (ngSubmit)="submit()">
+
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" formControlName="title" placeholder="Enter title" />
+      <div class="error" *ngIf="todoForm.get('title')?.invalid && todoForm.get('title')?.touched">
+        Title is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea formControlName="description" placeholder="Enter description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Category</label>
+      <select formControlName="category">
+        <option value="" disabled>Select category</option>
+        <option value="Development">Development</option>
+        <option value="UI/UX">UI/UX Design</option>
+        <option value="QA">QA</option>
+        <option value="DevOps">DevOps</option>
+        <option value="Database">DB Design</option>
+        <option value="Business Analysis">Business Analysis</option>
+      </select>
+      <div class="error" *ngIf="todoForm.get('category')?.invalid && todoForm.get('category')?.touched">
+        Category is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Priority</label>
+      <select formControlName="priority">
+        <option value="" disabled>Select priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+        <option value="Critical">Critical</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Assigned To</label>
+      <select formControlName="assignedTo">
+        <option value="" disabled>Select assignee</option>
+        <option value="Abir">Abir</option>
+        <option value="Raihan">Raihan</option>
+        <option value="Navid">Navid</option>
+        <option value="Khalid">Khalid</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Start Date</label>
+      <input type="date" formControlName="startDate" />
+    </div>
+
+    <div class="form-group">
+      <label>End Date</label>
+      <input type="date" formControlName="endDate" />
+    </div>
+
+    <button type="submit">Update Todo</button>
+    <button type="button" routerLink="/todos">Cancel</button>
+  </form>
+</div>

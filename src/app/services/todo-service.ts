@@ -1,48 +1,39 @@
 import { Injectable, signal } from '@angular/core';
 import {  Todo } from '../todolist/interface';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  todos = signal<Todo[]>([]);
 
-  // getTodos(){
-  //   return this.todos;
-  // }
+private apiUrl = 'http://localhost:3000/todos'; // JSON Server endpoint
 
-  addTodo(title:string, description:string, category:string,priority:string, status: string, assignedTo: string,startDate:Date, endDate:Date){
-    const newTodo: Todo ={
-      id:Date.now(),
-      title,
-      description,
-      category,
-      priority,
-      status,
-      assignedTo,
-      startDate,
-      endDate
-    }
-    this.todos.update(todos => [...todos, newTodo]);
+  constructor(private http: HttpClient) {}
+
+  // Fetch all todos
+  getTodos(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.apiUrl);
   }
 
-  deleteTodo(id:number){
-    this.todos.update(todos => todos.filter(todo => todo.id !==id))
+  // Fetch a todo by ID
+  getTodoById(id: string): Observable<Todo> {
+    return this.http.get<Todo>(`${this.apiUrl}/${id}`);
   }
 
-  updateTodo(
-  id: number,
-  data: { title: string; description: string; category: string; priority:string, status: string; assignedTo:string, endDate: Date }
-) {
-  this.todos.update(todos =>
-    todos.map(todo => (todo.id === id ? { ...todo, ...data } : todo))
-  );
-}
+  // Add a new todo
+  addTodo(todo: Todo): Observable<Todo> {
+    return this.http.post<Todo>(this.apiUrl, todo);
+  }
 
+  // Update a todo
+  updateTodo(id: string, todo: Partial<Todo>): Observable<Todo> {
+    return this.http.put<Todo>(`${this.apiUrl}/${id}`, todo);
+  }
 
-
-
- getTodoById(id: number): Todo | null {
-    return this.todos().find(todo => todo.id === id) || null;
+  // Delete a todo
+  deleteTodo(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

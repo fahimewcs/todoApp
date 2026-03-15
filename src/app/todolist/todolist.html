@@ -1,150 +1,9 @@
 <div class="container">
   <h1>Todo List</h1>
 
-  <!-- Add New Todo -->
-  <div class="form">
+  <button class="add-btn" [routerLink]="'/todoform'">Add New Todo</button>
 
-  <div class="form-group">
-    <label>Task Name</label>
-    <input
-      type="text"
-      placeholder="Enter Title"
-      [ngModel]="newTodoTitle()"
-      (ngModelChange)="onTitleChange($event)"
-    />
-    <div class="error" *ngIf="titleError()">{{ titleError() }}</div>
-  </div>
-
-
-  <div class="form-group">
-    <label>Description</label>
-    <input
-      type="text"
-      placeholder="Enter Description"
-      [ngModel]="newTodoDescription()"
-      (ngModelChange)="newTodoDescription.set($event)"
-    />
-  </div>
-
-
-  <div class="form-group">
-    <label>Category</label>
-    <select
-      [ngModel]="newTodoCategory()"
-      (ngModelChange)="onCategoryChange($event)"
-    >
-      <option value="" disabled selected>Select</option>
-      <option value="Development">Development</option>
-      <option value="UI/UX">UI/UX Design</option>
-      <option value="QA">QA</option>
-      <option value="DevOps">DevOps</option>
-      <option value="Database">DB Design</option>
-      <option value="Business Analysis">Business Analysis</option>
-    </select>
-
-    <div class="error" *ngIf="categoryError()">{{ categoryError() }}</div>
-  </div>
-
-
-  <div class="form-group">
-    <label>Priority</label>
-    <select
-      [ngModel]="newTodoPriority()"
-      (ngModelChange)="newTodoPriority.set($event)"
-    >
-      <option value="" disabled selected>Select</option>
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
-      <option value="Critical">Critical</option>
-    </select>
-  </div>
-
-
-  <div class="form-group">
-    <label>Assigned To</label>
-    <select
-      [ngModel]="newTodoAssigndedTo()"
-      (ngModelChange)="newTodoAssigndedTo.set($event)"
-    >
-      <option value="" disabled selected>Select</option>
-      <option value="Abir">Abir</option>
-      <option value="Raihan">Raihan</option>
-      <option value="Navid">Navid</option>
-      <option value="Khalid">Khalid</option>
-    </select>
-  </div>
-
-
-  <div class="form-group">
-    <label>Start Date</label>
-    <input
-      type="date"
-      [ngModel]="newTodoStartDate()"
-      (ngModelChange)="newTodoStartDate.set($event)"
-    />
-  </div>
-
-
-  <div class="form-group">
-    <label>End Date</label>
-    <input
-      type="date"
-      [ngModel]="newTodoEndDate()"
-      (ngModelChange)="onEndDateChange($event)"
-    />
-
-    <div class="error" *ngIf="endDateError()">{{ endDateError() }}</div>
-  </div>
-
-
-  <button (click)="add()" [class.update-btn]="editId() !== null" [disabled]="isAddDisabled()" [class.disabled-btn]="isAddDisabled()">
-    
-    {{editId() !==null ? 'Update Todo': 'Add Todo'}}
-  </button>
-
-</div>
-
-
-
-<div class="filter-row">
-  <div class="filter-item">
-    <label>Status:</label>
-    <select [ngModel]="filterStatus()" (ngModelChange)="filterStatus.set($event)">
-      <option value="">All</option>
-      <option value="Pending">Pending</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Completed">Completed</option>
-    </select>
-  </div>
-
-  <div class="filter-item">
-    <label>Category:</label>
-    <select [ngModel]="filterCategory()" (ngModelChange)="filterCategory.set($event)">
-      <option value="">All</option>
-      <option value="Development">Development</option>
-      <option value="UI/UX">UI/UX Design</option>
-      <option value="QA">QA</option>
-      <option value="DevOps">DevOps</option>
-      <option value="Database">DB Design</option>
-      <option value="Business Analysis">Business Analysis</option>
-    </select>
-  </div>
-
-  <div class="filter-item">
-    <label>Deadline:</label>
-    <input type="date" [ngModel]="filterDeadline()" (ngModelChange)="filterDeadline.set($event)" />
-  </div>
-
-  <div class="filter-buttons">
-    <button (click)="applyFilter()" [disabled]="isFilterDisabled()" [class.disabled-btn]="isFilterDisabled()">Filter</button>
-    <button class="reset-btn" (click)="resetFilter()" [disabled]="isResetDisabled()" [class.disabled-btn]="isResetDisabled()">Reset</button>
-  </div>
-</div>
-
-
-  <!-- Todo List -->
- <table border="1">
+  <table>
     <thead>
       <tr>
         <th>Title</th>
@@ -159,31 +18,24 @@
       </tr>
     </thead>
     <tbody>
-      @for (todo of filteredTodosList(); track todo.id) {
-        <tr>
-          <td>{{ todo.title }}</td>
-          <td>{{ todo.description }}</td>
-          <td>{{ todo.category }}</td>
-          <td>{{ todo.priority }}</td>
-          <td>
-            <select [ngModel]="todo.status"
-                    (ngModelChange)="todoService.updateTodo(todo.id,{...todo, status:$event})">
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Completed">Completed</option>
-            </select>
-
-          </td>
-          <td>{{ todo.assignedTo }}</td>
-          <td>{{ todo.startDate | date:'mediumDate' }}</td>
-          <td>{{ todo.endDate | date:'mediumDate' }}</td>
-          <td>
-            <button class="edit-btn" (click)="editTodo(todo.id)">Edit</button>
-            <button class="delete-btn" (click)="deleteTodo(todo.id)">Delete</button>
-          </td>
-        </tr>
-      }
+      <tr *ngFor="let todo of todos">
+        <td>{{ todo.title }}</td>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.category }}</td>
+        <td>{{ todo.priority }}</td>
+        <td>{{ todo.status }}</td>
+        <td>{{ todo.assignedTo }}</td>
+        <td>{{ todo.startDate | date: 'mediumDate'}}</td>
+        <td>{{ todo.endDate | date: 'mediumDate'}}</td>
+        <td>
+          <button >Edit</button>
+          <button (click)="deleteTodo(todo.id)">Delete</button>
+        </td>
+      </tr>
     </tbody>
   </table>
-</div>
 
+  <div *ngIf="todos.length === 0">
+    No todos found.
+  </div>
+</div>

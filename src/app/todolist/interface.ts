@@ -1,11 +1,11 @@
 export interface Todo {
-    id: number;
+    id: string;
     title: string;
     description: string;
     category: string;
     priority: string;
     status: string;
     assignedTo: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
 }

@@ -1,0 +1,45 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Sign Up</h2>
+    <p class="msg">{{ message }}</p>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+      <div class="input-group">
+        <label>Name</label>
+        <input type="text" formControlName="name" placeholder="Enter your name">
+        <small *ngIf="registerForm.controls.name.touched && registerForm.controls.name.invalid">
+          Name is required
+        </small>
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter your email">
+        <small *ngIf="registerForm.controls.email.touched && registerForm.controls.email.invalid">
+          <span *ngIf="registerForm.controls.email.errors?.['required']">Email is required</span>
+          <span *ngIf="registerForm.controls.email.errors?.['email']">Invalid email format</span>
+        </small>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Enter password">
+        <small *ngIf="registerForm.controls.password.touched && registerForm.controls.password.invalid">
+          <span *ngIf="registerForm.controls.password.errors?.['required']">Password is required</span>
+          <span *ngIf="registerForm.controls.password.errors?.['minlength']">Min 6 characters</span>
+        </small>
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" formControlName="confirmPassword" placeholder="Confirm password">
+      </div>
+
+      <button type="submit" class="btn">Register</button>
+    </form>
+
+    <p class="login-link">
+      Already have an account? <a [routerLink]="['']">Login</a>
+    </p>
+  </div>
+</div>
