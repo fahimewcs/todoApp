@@ -3,6 +3,63 @@
 
   <button class="add-btn" [routerLink]="'/todoform'">Add New Todo</button>
 
+ <h3>Filter By</h3>
+  <div class="filter-section">
+
+    <div class="filter-item">
+    <label>Category</label>
+    <select [(ngModel)]="filterCategory">
+      <option value="">All</option>
+      <option value="Development">Development</option>
+      <option value="UI/UX">UI/UX Design</option>
+      <option value="QA">QA</option>
+      <option value="DevOps">DevOps</option>
+      <option value="Database">DB Design</option>
+      <option value="Business Analysis">Business Analysis</option>
+    </select>
+  </div>
+
+  
+
+ <div class="filter-item">
+    <label>Status</label>
+    <select [(ngModel)]="filterStatus">
+      <option value="">All</option>
+      <option>Pending</option>
+      <option>In Progress</option>
+      <option>Completed</option>
+    </select>
+  </div>
+
+  <div class="filter-item">
+    <label>Priority</label>
+    <select [(ngModel)]="filterPriority">
+      <option value="">All</option>
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+  </div>
+
+  <div class="filter-item">
+    <label>Start Date</label>
+    <input type="date" [(ngModel)]="filterStartDate">
+  </div>
+
+  <div class="filter-item">
+    <label>End Date</label>
+    <input type="date" [(ngModel)]="filterEndDate">
+  </div>
+
+  <div class="filter-buttons">
+    <button class="filter-btn" (click)="applyFilter()" [disabled]="!isFilterActive">Filter</button>
+    <button class="reset-btn" (click)="resetFilters()" [disabled]="!isFilterActive">Reset</button>
+
+  </div>
+  
+
+</div>
+
   <table>
     <thead>
       <tr>
@@ -10,26 +67,30 @@
         <th>Description</th>
         <th>Category</th>
         <th>Priority</th>
-        <th>Status</th>
-        <th>Assigned To</th>
+        <th>Status</th>  
         <th>Start Date</th>
         <th>End Date</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let todo of todos">
+      <tr *ngFor="let todo of filteredTodos">
         <td>{{ todo.title }}</td>
         <td>{{ todo.description }}</td>
         <td>{{ todo.category }}</td>
         <td>{{ todo.priority }}</td>
-        <td>{{ todo.status }}</td>
-        <td>{{ todo.assignedTo }}</td>
+        <td>
+          <select [(ngModel)]="todo.status" (change)="updateStatus(todo)">
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+          </select>
+        </td>
         <td>{{ todo.startDate | date: 'mediumDate'}}</td>
         <td>{{ todo.endDate | date: 'mediumDate'}}</td>
         <td>
-          <button >Edit</button>
-          <button (click)="deleteTodo(todo.id)">Delete</button>
+          <button class="edit-btn" (click)="editTodo(todo.id)">Edit</button>
+          <button class="delete-btn" (click)="deleteTodo(todo.id)">Delete</button>
         </td>
       </tr>
     </tbody>

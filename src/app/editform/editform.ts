@@ -1,91 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TodoService } from '../services/todo-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Todo } from '../todolist/interface';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-editform',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './editform.html',
   styleUrl: './editform.css',
 })
-export class Editform {
-  todoForm: FormGroup;
-  todoId!: string;
+export class Editform implements OnInit {
+   todoId!: string;
+  todoForm!: FormGroup;
+  message = '';
 
   constructor(
-    private fb: FormBuilder,
-    private todoService: TodoService,
+    private route: ActivatedRoute,
     private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.todoForm = this.fb.group({
-      title: ['', Validators.required],
-      description: [''],
-      category: ['', Validators.required],
-      priority: [''],
-      status: ['Pending'],
-      assignedTo: [''],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
-    });
-  }
+    private todoService: TodoService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const idParam = params.get('id');
-      if (idParam) {
-        this.todoId = idParam;
-        this.loadTodo(this.todoId);
-      }
-    });
+    this.todoId = this.route.snapshot.paramMap.get('id') || '';
+    this.loadTodo();
   }
 
-  loadTodo(id: string) {
-    this.todoService.getTodoById(id).subscribe((todo: Todo) => {
-      this.todoForm.patchValue({
-        title: todo.title,
-        description: todo.description,
-        category: todo.category,
-        priority: todo.priority,
-        status: todo.status,
-        assignedTo: todo.assignedTo,
-        startDate: new Date(todo.startDate).toISOString().split('T')[0],
-        endDate: new Date(todo.endDate).toISOString().split('T')[0]
+  loadTodo() {
+    this.todoService.getTodoById(this.todoId).subscribe((todo: Todo) => {
+      this.todoForm = this.fb.group({
+        title: [todo.title, Validators.required],
+        description: [todo.description],
+        category: [todo.category, Validators.required],
+        priority: [todo.priority],
+        startDate: [todo.startDate],
+        endDate: [todo.endDate, Validators.required]
       });
     });
   }
 
-  submit() {
-    if (this.todoForm.invalid) {
-      alert('Please fill all required fields');
-      return;
-    }
-
+  saveTodo() {
     const formValue = this.todoForm.value;
-
     if (new Date(formValue.endDate) < new Date(formValue.startDate)) {
-      alert('End date must be after Start date');
+      // alert('End date must be after Start date');
+      this.message = "End date must be after Start date";
       return;
     }
 
-    const updatedTodo: Partial<Todo> = {
-      title: formValue.title,
-      description: formValue.description,
-      category: formValue.category,
-      priority: formValue.priority,
-      status: formValue.status,
-      assignedTo: formValue.assignedTo,
-      startDate: formValue.startDate,
-     endDate: formValue.endDate
-    };
-
-    this.todoService.updateTodo(this.todoId, updatedTodo).subscribe(() => {
-      alert('Todo updated successfully!');
-      this.router.navigate(['/todos']); // Redirect to list page
-    });
+    if (this.todoForm.valid) {
+      this.todoService.updateTodo(this.todoId, this.todoForm.value).subscribe(() => {
+        alert('Todo updated successfully!');
+        this.router.navigate(['/todolist']); 
+      });
+    }
   }
 
 }

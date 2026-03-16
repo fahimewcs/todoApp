@@ -1,70 +1,73 @@
 <div class="container">
   <h1>Edit Todo</h1>
 
-  <form [formGroup]="todoForm" (ngSubmit)="submit()">
+  <form [formGroup]="todoForm" (ngSubmit)="saveTodo()">
 
-    <div class="form-group">
-      <label>Title</label>
-      <input type="text" formControlName="title" placeholder="Enter title" />
-      <div class="error" *ngIf="todoForm.get('title')?.invalid && todoForm.get('title')?.touched">
-        Title is required
+    <!-- Row 1: Title, Category, Description -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" placeholder="Enter Title" />
+        <div class="error" *ngIf="todoForm.get('title')?.invalid && todoForm.get('title')?.touched">
+          Title is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select formControlName="category">
+          <option value="" disabled>Select</option>
+          <option value="Development">Development</option>
+          <option value="UI/UX">UI/UX Design</option>
+          <option value="QA">QA</option>
+          <option value="DevOps">DevOps</option>
+          <option value="Database">DB Design</option>
+          <option value="Business Analysis">Business Analysis</option>
+        </select>
+        <div class="error" *ngIf="todoForm.get('category')?.invalid && todoForm.get('category')?.touched">
+          Category is required
+        </div>
+      </div>
+
+      <div class="form-group description">
+        <label>Description</label>
+        <input type="text" formControlName="description" placeholder="Enter Description" />
       </div>
     </div>
 
-    <div class="form-group">
-      <label>Description</label>
-      <textarea formControlName="description" placeholder="Enter description"></textarea>
-    </div>
+    <!-- Row 2: Priority, Status, Start/End Date -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Priority</label>
+        <select formControlName="priority">
+          <option value="" disabled>Select</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+          <option value="Critical">Critical</option>
+        </select>
+      </div>
 
-    <div class="form-group">
-      <label>Category</label>
-      <select formControlName="category">
-        <option value="" disabled>Select category</option>
-        <option value="Development">Development</option>
-        <option value="UI/UX">UI/UX Design</option>
-        <option value="QA">QA</option>
-        <option value="DevOps">DevOps</option>
-        <option value="Database">DB Design</option>
-        <option value="Business Analysis">Business Analysis</option>
-      </select>
-      <div class="error" *ngIf="todoForm.get('category')?.invalid && todoForm.get('category')?.touched">
-        Category is required
+      <div class="form-group">
+        <label>Start Date</label>
+        <input type="date" formControlName="startDate" />
+      </div>
+
+      <div class="form-group">
+        <label>End Date</label>
+        <input type="date" formControlName="endDate" />
+        <div class="error" *ngIf="todoForm.get('endDate')?.invalid && todoForm.get('endDate')?.touched">
+          Date is required. Must be greater than start date.
+        </div>
+        <h5>{{message}}</h5>
       </div>
     </div>
 
-    <div class="form-group">
-      <label>Priority</label>
-      <select formControlName="priority">
-        <option value="" disabled>Select priority</option>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-        <option value="Critical">Critical</option>
-      </select>
+    <!-- Actions -->
+    <div class="form-actions">
+      <button type="submit" [disabled]="todoForm.invalid">Save</button>
+      <button type="button" [routerLink]="'/todolist'">Cancel</button>
     </div>
 
-    <div class="form-group">
-      <label>Assigned To</label>
-      <select formControlName="assignedTo">
-        <option value="" disabled>Select assignee</option>
-        <option value="Abir">Abir</option>
-        <option value="Raihan">Raihan</option>
-        <option value="Navid">Navid</option>
-        <option value="Khalid">Khalid</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Start Date</label>
-      <input type="date" formControlName="startDate" />
-    </div>
-
-    <div class="form-group">
-      <label>End Date</label>
-      <input type="date" formControlName="endDate" />
-    </div>
-
-    <button type="submit">Update Todo</button>
-    <button type="button" routerLink="/todos">Cancel</button>
   </form>
 </div>

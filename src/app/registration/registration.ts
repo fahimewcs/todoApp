@@ -49,7 +49,7 @@ export class Registration {
 
       // save to database
       const user = { name: data.name, email: data.email, password: data.password };
-      this.apiService.register(user).subscribe(res => {
+      this.apiService.register(user).subscribe(() => {
         this.message = 'Registration Successful!';
         this.registerForm.reset();
 

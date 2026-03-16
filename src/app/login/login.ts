@@ -37,7 +37,7 @@ export class Login {
       return;
     }
 
-    const user = users[0]; // JSON Server returns array
+    const user = users[0]; 
 
 
       if (user.password !== data.password) {

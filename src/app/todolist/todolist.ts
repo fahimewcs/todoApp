@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TodoService } from '../services/todo-service';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -16,7 +16,16 @@ export class Todolist implements OnInit{
 
  todos: Todo[] = [];
 
-  constructor(private todoService: TodoService, private cdr: ChangeDetectorRef) {}
+ filteredTodos: Todo[] = [];
+
+  // filter fields
+  filterCategory: string = '';
+  filterStatus: string = '';
+  filterPriority: string = '';
+  filterStartDate: string = '';
+  filterEndDate: string = '';
+
+  constructor(private todoService: TodoService, private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit(): void {
     console.log('Todolist component loaded');
@@ -27,22 +36,53 @@ export class Todolist implements OnInit{
     console.log('loadtodos');
     this.todoService.getTodos().subscribe((data: Todo[]) => {
       this.todos = data;
+      this.filteredTodos = data;
       this.cdr.detectChanges();
   
     });
   }
 
-// loadTodos() {
-//   this.todoService.getTodos().subscribe({
-//     next: (data) => {
-//       console.log('Fetched todos:', data);
-//       this.todos = data;
-//       this.cdr.detectChanges(); 
-//     },
-//     error: (err) => console.error(err)
-//   });
-// }
+  applyFilter(){
+      this.filteredTodos = this.todos.filter(todo => {
 
+      const categoryMatch = !this.filterCategory || todo.category === this.filterCategory;
+
+      const statusMatch = !this.filterStatus || todo.status === this.filterStatus;
+
+      const priorityMatch = !this.filterPriority || todo.priority === this.filterPriority;
+
+      const startDateMatch = !this.filterStartDate || new Date(todo.startDate) >= new Date(this.filterStartDate);
+
+      const endDateMatch = !this.filterEndDate || new Date(todo.endDate) <= new Date(this.filterEndDate);
+
+      return (categoryMatch && statusMatch && priorityMatch && startDateMatch && endDateMatch);
+    });
+  }
+   
+
+
+  resetFilters() {
+    this.filterCategory = '';
+    this.filterStatus = '';
+    this.filterPriority = '';
+    this.filterStartDate = '';
+    this.filterEndDate = '';
+
+    this.filteredTodos = this.todos;
+  }
+
+
+  get isFilterActive(): boolean {
+  return (!!this.filterCategory || !!this.filterStatus || !!this.filterPriority || !!this.filterStartDate ||!!this.filterEndDate);
+}
+
+
+updateStatus(todo: Todo) {
+  // Only update status field
+  this.todoService.updateTodoStatus(todo.id, todo.status).subscribe(() => {
+    console.log(`Todo ${todo.id} status updated to ${todo.status}`);
+  });
+}
 
   deleteTodo(id: string) {
     if (confirm('Are you sure you want to delete this todo?')) {
@@ -52,9 +92,9 @@ export class Todolist implements OnInit{
     }
   }
 
-  // editTodo(id: string) {
-  //   this.router.navigate(['/todos/edit', id]);
-  // }
+  editTodo(id: string) {
+    this.router.navigate(['/editform', id]);
+  }
 }
     
 

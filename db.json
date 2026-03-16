@@ -5,41 +5,24 @@
       "name": "abir",
       "email": "abir@gmail.com",
       "password": "123456"
+    },
+    {
+      "id": "7ebc",
+      "name": "Amin",
+      "email": "amin@email.com",
+      "password": "123456"
     }
   ],
   "todos": [
     {
-      "id": "32a3",
-      "title": "sfs",
-      "description": "sf",
-      "category": "Business Analysis",
-      "priority": "",
-      "status": "Pending",
-      "assignedTo": "",
-      "startDate": "2026-03-15",
-      "endDate": "2026-03-27"
-    },
-    {
-      "id": "c6d9",
-      "title": "sdf",
-      "description": "fsfd",
-      "category": "QA",
-      "priority": "Medium",
-      "status": "Completed",
-      "assignedTo": "Raihan",
-      "startDate": "2026-03-15",
-      "endDate": "2026-03-27"
-    },
-    {
-      "id": "4609",
-      "title": "sfs",
-      "description": "sdfdsf",
+      "title": "sfsf",
+      "description": "sfsfs",
       "category": "DevOps",
-      "priority": "Medium",
+      "priority": "High",
       "status": "Completed",
-      "assignedTo": "Navid",
-      "startDate": "2026-03-15",
-      "endDate": "2026-03-28"
+      "startDate": "2026-03-16",
+      "endDate": "2026-03-19",
+      "id": "eba4"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TodoService } from '../services/todo-service';
 import { Todo } from '../todolist/interface';
 import { Router, RouterLink } from '@angular/router';
@@ -22,7 +22,6 @@ export class Todoform{
       category: ['', Validators.required],
       priority: [''],
       status: ['Pending'],
-      assignedTo: [''],
       startDate: [new Date().toISOString().split('T')[0]],
       endDate: ['', Validators.required]
     });

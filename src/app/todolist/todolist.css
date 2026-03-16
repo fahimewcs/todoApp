@@ -8,6 +8,72 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+h1{
+  text-align: center;
+}
+
+.filter-section {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  width: 160px;   /* same width for every field */
+}
+
+.filter-item label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.filter-item input,
+.filter-item select {
+  width: 100%;              
+  height: 34px;             
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;   
+  font-size: 14px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reset-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 /* Table styling */
 table {
   width: 100%;
@@ -18,7 +84,7 @@ table {
 table th, table td {
   border: 1px solid #ddd;
   padding: 10px;
-  text-align: left;
+  text-align: center;
 }
 
 table th {
@@ -59,12 +125,12 @@ button:hover {
   background-color: #45a049;
 }
 
-button:nth-child(1) { /* Edit button */
+.edit-btn { /* Edit button */
   background-color: #2196F3;
   color: white;
 }
 
-button:nth-child(2) { /* Delete button */
+.delete-btn { /* Delete button */
   background-color: #f44336;
   color: white;
 }
