@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "json-server --watch db.json --port $PORT",
+    "start": "cross-env PORT=$PORT json-server --watch db.json --host 0.0.0.0 --port $PORT",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -29,15 +29,16 @@
     "@angular/forms": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
     "@angular/router": "^21.1.0",
+    "json-server": "^0.17.3",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "json-server": "^0.17.3"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^21.1.1",
     "@angular/cli": "^21.1.1",
     "@angular/compiler-cli": "^21.1.0",
+    "cross-env": "^10.1.0",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
@@ -56,6 +57,4 @@
     "url": "https://gitlab.com/fahimsft/todoapp/issues"
   },
   "homepage": "https://gitlab.com/fahimsft/todoapp#readme"
-
-
 }
