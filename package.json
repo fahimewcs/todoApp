@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "json-server": "json-server --watch db.json --port $PORT"
   },
   "prettier": {
     "printWidth": 100,
@@ -29,8 +30,10 @@
     "@angular/forms": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
     "@angular/router": "^21.1.0",
+    "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "json-server": "^0.17.3"
   },
   "devDependencies": {
     "@angular/build": "^21.1.1",
@@ -39,5 +42,21 @@
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
-  }
+  },
+  "description": "<<<<<<< HEAD\r # TodoApp",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/fahimsft/todoapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://gitlab.com/fahimsft/todoapp/issues"
+  },
+  "homepage": "https://gitlab.com/fahimsft/todoapp#readme"
+
+
 }

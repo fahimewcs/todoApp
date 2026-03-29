@@ -1,8 +1,8 @@
 /* Container */
 .container {
-  width: 90%;
-  margin:40px;
-  padding: 20px;
+  width: 95%;
+  margin:2px;
+  padding: 10px;
   background-color: #d7b5b5;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);

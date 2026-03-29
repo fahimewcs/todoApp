@@ -53,7 +53,7 @@ export class Todoform{
 
   this.todoService.addTodo(newTodo as Todo).subscribe(() => {
     alert('Todo added successfully!');
-    this.router.navigate(['/todolist']);
+    this.router.navigate(['/dashboard/todolist']);
   });
   }
 

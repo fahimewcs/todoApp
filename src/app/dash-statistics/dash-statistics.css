@@ -1,0 +1,54 @@
+/* container */
+.stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+/* common card style */
+.card {
+  flex: 1 1 200px;
+  padding: 25px 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* colors for each card */
+.card.total {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+.card.completed {
+  background: linear-gradient(135deg, #56ab2f, #a8e063); /* green */
+}
+
+.card.pending {
+  background: linear-gradient(135deg, #f7971e, #ffd200); /* yellow/orange */
+  color: #333;
+}
+
+.card.high-priority {
+  background: linear-gradient(135deg, #e53935, #fbc2eb); /* red/pink */
+}

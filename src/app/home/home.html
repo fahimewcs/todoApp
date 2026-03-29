@@ -1,0 +1,141 @@
+<div class="landing-container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+
+    <h2 class="logo">TaskFlow</h2>
+
+    <div class="nav-links">
+      <a href="#">Features</a>
+      <a href="#">About</a>
+      <a [routerLink]="'/login'">Login</a>
+
+      <button [routerLink]="'/registration'" class="btn-primary">
+        Get Started
+      </button>
+
+    </div>
+
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+
+    <div class="hero-left">
+
+      <h1>
+        Organize Work
+        <span>Like Jira & Trello</span>
+      </h1>
+
+      <p>
+        Manage tasks, track deadlines, filter work and boost productivity
+        with a modern workflow management system.
+      </p>
+
+      <div class="hero-buttons">
+
+        <button routerLink="/todos" class="btn-primary big">
+          Start Free
+        </button>
+
+        <button class="btn-outline">
+          Live Demo
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="hero-right">
+
+      <div class="dashboard-preview">
+
+        <div class="card preview-card">
+          <h4>Todo</h4>
+          <p>Create UI design</p>
+          <span class="tag pending">Pending</span>
+        </div>
+
+        <div class="card preview-card">
+          <h4>In Progress</h4>
+          <p>Connect API</p>
+          <span class="tag progress">Progress</span>
+        </div>
+
+        <div class="card preview-card">
+          <h4>Completed</h4>
+          <p>Deploy project</p>
+          <span class="tag done">Done</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+
+    <h2>Why Choose TaskFlow?</h2>
+
+    <div class="feature-grid">
+
+      <div class="card">
+        <h3>Task Tracking</h3>
+        <p>
+          Manage tasks easily with clean dashboard.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Status Control</h3>
+        <p>
+          Track Pending, Progress and Completed.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Smart Filters</h3>
+        <p>
+          Find tasks quickly using filter options.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Deadline Manage</h3>
+        <p>
+          Never miss important delivery dates.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+
+    <h2>Start Managing Your Work Today</h2>
+
+    <p>
+      Simple, fast and powerful task management system.
+    </p>
+
+    <button routerLink="/todos" class="btn-primary big">
+      Go to Dashboard
+    </button>
+
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+
+    <p>
+      © 2026 TaskFlow. All rights reserved.
+    </p>
+
+  </footer>
+
+</div>

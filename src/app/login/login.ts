@@ -45,8 +45,13 @@ export class Login {
         return;
       }
 
+      // store login state
+      localStorage.setItem('isLoggedIn', 'true');
+      // // store logged user info
+      localStorage.setItem('userName', user.name);
 
-        this.router.navigate(['/todolist']);
+
+        this.router.navigate(['/dashboard/statistics']);
         this.loginForm.reset();
     } 
 

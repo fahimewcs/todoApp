@@ -20,6 +20,10 @@ export class ApiService {
     return this.http.get<any[]>(`${this.baseUrl}?email=${email}`);
   }
 
+  getUserById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
+
 }
 
 

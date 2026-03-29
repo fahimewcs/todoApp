@@ -35,6 +35,7 @@ export class Editform implements OnInit {
         description: [todo.description],
         category: [todo.category, Validators.required],
         priority: [todo.priority],
+        status: [todo.status],
         startDate: [todo.startDate],
         endDate: [todo.endDate, Validators.required]
       });
@@ -52,7 +53,7 @@ export class Editform implements OnInit {
     if (this.todoForm.valid) {
       this.todoService.updateTodo(this.todoId, this.todoForm.value).subscribe(() => {
         alert('Todo updated successfully!');
-        this.router.navigate(['/todolist']); 
+        this.router.navigate(['/dashboard/todolist']); 
       });
     }
   }

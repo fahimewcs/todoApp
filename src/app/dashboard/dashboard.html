@@ -1,0 +1,73 @@
+<div class="dashboard">
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="logo">
+      TaskFlow
+    </div>
+
+    <div class="search-box">
+
+      <input placeholder="Search tasks..." />
+
+    </div>
+
+    <div class="header-right">
+
+      <span class="user">
+        {{userName}}
+      </span>
+
+      <button (click)="logout()" class="logout-btn">
+        Logout
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- BODY -->
+
+  <div class="body">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="menu-title">
+        WORKSPACE
+      </div>
+
+      <a [routerLink]="'statistics'" routerLinkActive="active">Dashboard </a>
+
+      <a [routerLink]="'todoform'" routerLinkActive="active">Add Task </a>
+
+      <a [routerLink]="'todolist'" routerLinkActive="active">Task List</a>
+
+    </aside>
+
+
+
+    <!-- CONTENT AREA -->
+
+    <main class="content">
+
+
+      <!-- dynamic pages will load here -->
+
+      <div class="workspace">
+
+        <router-outlet></router-outlet>
+
+      </div>
+
+    </main>
+
+
+  </div>
+
+</div>

@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Todo List</h1>
 
-  <button class="add-btn" [routerLink]="'/todoform'">Add New Todo</button>
+  <button class="add-btn" [routerLink]="'/dashboard/todoform'">Add New Todo</button>
 
  <h3>Filter By</h3>
   <div class="filter-section">
@@ -38,6 +38,7 @@
       <option>Low</option>
       <option>Medium</option>
       <option>High</option>
+      <option>Critical</option>
     </select>
   </div>
 
@@ -60,6 +61,21 @@
 
 </div>
 
+<div class="page-size">
+  Show:
+
+  <select [(ngModel)]="itemsPerPage">
+
+    <option [value]="5">5</option>
+    <option [value]="10">10</option>
+    <option [value]="20">20</option>
+
+  </select>
+
+  items per page
+
+</div>
+
   <table>
     <thead>
       <tr>
@@ -74,7 +90,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let todo of filteredTodos">
+      <tr *ngFor="let todo of filteredTodos| paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
         <td>{{ todo.title }}</td>
         <td>{{ todo.description }}</td>
         <td>{{ todo.category }}</td>
@@ -95,6 +111,9 @@
       </tr>
     </tbody>
   </table>
+
+  <pagination-controls (pageChange)="page = $event">
+  </pagination-controls>
 
   <div *ngIf="todos.length === 0">
     No todos found.

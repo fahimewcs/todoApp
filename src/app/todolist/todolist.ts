@@ -1,14 +1,15 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { TodoService } from '../services/todo-service';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Todo } from './interface';
 import { Router, RouterLink } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @Component({
   selector: 'app-todolist',
-  imports: [ReactiveFormsModule, CommonModule, DatePipe, FormsModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, DatePipe, FormsModule, RouterLink, NgxPaginationModule],
   templateUrl: './todolist.html',
   styleUrl: './todolist.css',
 })
@@ -17,6 +18,9 @@ export class Todolist implements OnInit{
  todos: Todo[] = [];
 
  filteredTodos: Todo[] = [];
+
+ page: number = 1;
+itemsPerPage: number = 5;
 
   // filter fields
   filterCategory: string = '';
@@ -43,6 +47,8 @@ export class Todolist implements OnInit{
   }
 
   applyFilter(){
+
+      this.page = 1;
       this.filteredTodos = this.todos.filter(todo => {
 
       const categoryMatch = !this.filterCategory || todo.category === this.filterCategory;
@@ -62,6 +68,8 @@ export class Todolist implements OnInit{
 
 
   resetFilters() {
+    this.page = 1;
+
     this.filterCategory = '';
     this.filterStatus = '';
     this.filterPriority = '';
@@ -93,7 +101,7 @@ updateStatus(todo: Todo) {
   }
 
   editTodo(id: string) {
-    this.router.navigate(['/editform', id]);
+    this.router.navigate(['dashboard/editform', id]);
   }
 }
     
