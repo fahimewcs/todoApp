@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class TodoService {
 
-private apiUrl = 'http://localhost:3000/todos'; 
-
+// private apiUrl = 'http://localhost:3000/todos'; 
+private apiUrl = 'https://todoapp-4pmw.onrender.com/todos';
   constructor(private http: HttpClient) {}
 
   // Fetch all todos
